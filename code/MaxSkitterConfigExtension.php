@@ -8,25 +8,28 @@
  * @author Pali Ondras
  */
 
-class MaxSkitterConfigExtension extends DataExtension {
-		
-	static function add_to_class($class, $extensionClass, $args = null) {
-        if($class == 'Page' || $class == "SiteConfig") {
+class MaxSkitterConfigExtension extends DataExtension
+{
+        
+    public static function add_to_class($class, $extensionClass, $args = null)
+    {
+        if ($class == 'Page' || $class == "SiteConfig") {
             Config::inst()->update($class, 'db', MaxSkitterDefaults::get_skitterDbFields());
         }
         parent::add_to_class($class, $extensionClass, $args);
-    } 
-	
-	function updateCMSFields(FieldList $fields) {		
-		if ($this->ownerBaseClass == "SiteConfig") {
-			$fields->addFieldsToTab("Root.SkitterGlobalConfig",MaxSkitterDefaults::get_skitterCMSFields());
-		}
-	}
-	
-	function updateSettingsFields(FieldList $fields) {			
-			$fields->addFieldsToTab("Root.SkitterPageConfig",MaxSkitterDefaults::get_skitterCMSFields());
-	}
-	
+    }
+    
+    public function updateCMSFields(FieldList $fields)
+    {
+        if ($this->ownerBaseClass == "SiteConfig") {
+            $fields->addFieldsToTab("Root.SkitterGlobalConfig", MaxSkitterDefaults::get_skitterCMSFields());
+        }
+    }
+    
+    public function updateSettingsFields(FieldList $fields)
+    {
+        $fields->addFieldsToTab("Root.SkitterPageConfig", MaxSkitterDefaults::get_skitterCMSFields());
+    }
 }
 
 //EOF

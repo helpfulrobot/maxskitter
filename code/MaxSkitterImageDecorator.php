@@ -14,19 +14,20 @@
  * @author Pali Ondras
  */
 
-class MaxSkitterImageDecorator extends DataExtension {
-	
-	public static $SkitterSlideWidth = 800;
-	
-	public static $SkitterSlideHeight = 300;
-	
-	function generateSkitterSlide($gd) {
-		return $gd->croppedResize(self::$SkitterSlideWidth,self::$SkitterSlideHeight);
-	}
-	
-	function SkitterSlide() {
-		return ($this->owner->Width == self::$SkitterSlideWidth && $this->owner->Height == self::$SkitterSlideHeight) ? $this->owner : $this->owner->getFormattedImage('SkitterSlide');
-	}	
-	
+class MaxSkitterImageDecorator extends DataExtension
+{
+    
+    public static $SkitterSlideWidth = 800;
+    
+    public static $SkitterSlideHeight = 300;
+    
+    public function generateSkitterSlide($gd)
+    {
+        return $gd->croppedResize(self::$SkitterSlideWidth, self::$SkitterSlideHeight);
+    }
+    
+    public function SkitterSlide()
+    {
+        return ($this->owner->Width == self::$SkitterSlideWidth && $this->owner->Height == self::$SkitterSlideHeight) ? $this->owner : $this->owner->getFormattedImage('SkitterSlide');
+    }
 }
-

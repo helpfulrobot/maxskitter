@@ -7,34 +7,35 @@
  * @author Pali Ondras
  */
 
-class MaxSkitterDecorator extends DataExtension {
-	
-	static $db = array('notRecursive' => 'Boolean');
-	
-	static $many_many = array('MaxSkitterSlides'=>'MaxSkitterSlide');
-	
-	public static $many_many_extraFields=array(
-    	'MaxSkitterSlides'=>array(
-        	'SortOrder'=>'Int'
+class MaxSkitterDecorator extends DataExtension
+{
+    
+    public static $db = array('notRecursive' => 'Boolean');
+    
+    public static $many_many = array('MaxSkitterSlides'=>'MaxSkitterSlide');
+    
+    public static $many_many_extraFields=array(
+        'MaxSkitterSlides'=>array(
+            'SortOrder'=>'Int'
         )
-	);
-	
-	function updateCMSFields(FieldList $fields) {	
-		
-		 $fields->addFieldToTab('Root.SkitterSlides', $grid=new GridField('MaxSkitterSlides', 'Skitter slides', $this->owner->MaxSkitterSlides(), GridFieldConfig_RelationEditor::create(10)));
+    );
+    
+    public function updateCMSFields(FieldList $fields)
+    {
+        $fields->addFieldToTab('Root.SkitterSlides', $grid=new GridField('MaxSkitterSlides', 'Skitter slides', $this->owner->MaxSkitterSlides(), GridFieldConfig_RelationEditor::create(10)));
 
         if (class_exists("GridFieldSortableRows")) {
-        	$grid->getConfig()->addComponent(new GridFieldSortableRows('SortOrder'));
-		} 
-	
-	}
-	
-	function updateSettingsFields(FieldList $fields) {
-		$fields->addFieldToTab("Root.SkitterConfig", new CheckboxField("notRecursive",_t("Skitter.notRecursive","Do not grab slides from parent page!")));
-	}
-	
-	public function OrderedSkitterSlides() {
+            $grid->getConfig()->addComponent(new GridFieldSortableRows('SortOrder'));
+        }
+    }
+    
+    public function updateSettingsFields(FieldList $fields)
+    {
+        $fields->addFieldToTab("Root.SkitterConfig", new CheckboxField("notRecursive", _t("Skitter.notRecursive", "Do not grab slides from parent page!")));
+    }
+    
+    public function OrderedSkitterSlides()
+    {
         return $this->owner->getManyManyComponents('MaxSkitterSlides')->sort('SortOrder');
     }
-	
 }
